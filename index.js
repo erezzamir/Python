@@ -3,23 +3,10 @@ const Discord = require("discord.js");
 
 const bot = new Discord.Client({disableEveryone: true});
 
-const swearWords = ["darn", "shucks", "frak", "shite", "arse", "ass", "asshole", "bastard", "bitch", "bollocks", "child-fucker", "Christ on a bike", "Christ on a cracker", "crap", "cunt", "damn", "frigger", "fuck", "goddamn", "godsdamn", "hell", "holy shit", "Jesus", "Jesus Christ", "Jesus H. Christ", "Jesus Harold Christ", "Jesus wept", "Jesus", "Mary and Joseph", "Judas Priest", "motherfucker", "nigga", "nigger", "shit", "shit ass", "shitass", "son of a bitch", "son of a motherless goat", "son of a whore", "sweet Jesus", "twat", "Can i suck your boobs", "Carpet muncher", "Choking your chicken", "Cock eyed Cunt.", "Cock muncher", "Cocklump", "Colder than a witches titty in a brass bra", "Creampie", "Cretinous cunting fuckhead", "Cum", "Cum Dumpster", "Cum on your face", "Cuntface", "can i fuck you from behind", "chimney sweeper", "chutney ferret", "cockeye", "coral stomper", "crotte", "cum dumpster", "cuntlapper", "cus", "Ai sat (directed at a man)", "Ain't", "Arrogant, Gum-chewing fat cunt", "As much use as a chocolate teapot", "a-hole", "arse bandit", "arvind kejriwal", "ask me bollix"];
+const swearWords = ["fuck", "bitch"];
 
 bot.on("ready", async () => {
-  console.log(`Bot is Online!`);
-bot.user.setActivity(`${bot.guilds.size} servers | /help`, {type: "WATCHING"});
-});
-
-// Updates the bot's status if he joins a server
-bot.on("guildCreate", guild => {
-bot.user.setActivity(`${bot.guilds.size} servers | /help`, {type: "WATCHING"});
-});
-
-/// Updates the bot's status if he leaves a servers
-bot.on("guildDelete", guild => {
-bot.user.setActivity(
-        `/help | Bot by Derpy [MIG] ⚒#6522`, {type: "PLAYING"});
-});
+bot.user.setGame("${server} Servers | /help");
 
 bot.on("message", async message => {
   if(message.author.bot) return;
@@ -37,7 +24,7 @@ bot.on("message", async message => {
     //!kick @daeshan askin for it
 
     let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!kUser) return message.channel.send("/kick (@user) (time) (reason)\n** **\n**Example:**\n** **\n/kick <@!440182142207655947> break the rules\n** **\nits will kick the user for brekaing the rules");
+    if(!kUser) return message.channel.send("/kick (@user) (time) (reason)");
     let kReason = args.join(" ").slice(22);
     if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
     if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
@@ -51,8 +38,8 @@ bot.on("message", async message => {
     .addField("Time", message.createdAt)
     .addField("Reason", kReason);
 
-    let kickChannel = message.guild.channels.find(`name`, "mod-log");
-    if(!kickChannel) return message.channel.send("Can't find mod-log channel.");
+    let kickChannel = message.guild.channels.find(`name`, "log-warns");
+    if(!kickChannel) return message.channel.send("Can't find log-warns channel.");
 
     message.guild.member(kUser).kick(kReason);
     kickChannel.send(kickEmbed);
@@ -62,18 +49,18 @@ bot.on("message", async message => {
 
 
 
-//if( swearWords.some(word => message.content.includes(word)) ) {
-     //message.delete();
-  //message.reply("Oh no you said a bad word!!!");
-  // Or just do message.delete();
-//await message.delete();
-//}
+if( swearWords.some(word => message.content.includes(word)) ) {
+     message.delete();
+  message.reply("Oh no you said a bad word!!!");
+   Or just do message.delete();
+await message.delete();
+}
 
 
   if(cmd === `${prefix}ban`){
 
     let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!bUser) return message.channel.send("/ban (@user) (time) (reason)\n** **\n**Example:**\n** **\n/ban <@!440182142207655947> break the rules\n** **\nits will ban the user for one hour for brekaing the rules");
+    if(!bUser) return message.channel.send("/ban (@user) (time) (reason)");
     let bReason = args.join(" ").slice(22);
     if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
     if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
@@ -87,60 +74,14 @@ bot.on("message", async message => {
     .addField("Time", message.createdAt)
     .addField("Reason", bReason);
 
-    let incidentchannel = message.guild.channels.find(`name`, "mod-log");
-    if(!incidentchannel) return message.channel.send("Can't find mod-log channel.");
+    let incidentchannel = message.guild.channels.find(`name`, "log-warns");
+    if(!incidentchannel) return message.channel.send("Can't find log-warns channel.");
 
     message.guild.member(bUser).ban(bReason);
     incidentchannel.send(banEmbed);
 
 
     return;
-  }
-
-
-  if(cmd === `${prefix}report`){
-
-    //!report @ned this is the reason
-
-    let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!rUser) return message.channel.send("/report (@user) (reason)\n** **\n**Example:**\n** **\n/report <@!440182142207655947> break the rules\n** **\nits will report the user for brekaing the rules");
-    let rreason = args.join(" ").slice(22);
-
-    let reportEmbed = new Discord.RichEmbed()
-    .setDescription("Reports")
-    .setColor("#ffdc00")
-    .addField("Reported", `${rUser}`)
-    .addField("Moderator", `${message.author}`)
-    .addField("Channel", message.channel)
-    .addField("Time", message.createdAt)
-    .addField("Reason", rreason);
-
-    let reportschannel = message.guild.channels.find(`name`, "mod-log");
-    if(!reportschannel) return message.channel.send("Couldn't find mod-log channel.");
-
-
-    message.delete().catch(O_o=>{});
-    reportschannel.send(reportEmbed);
-
-    return;
-  }
-
-
- 
-
-  if(cmd === `${prefix}serverinfo`){
-
-    let sicon = message.guild.iconURL;
-    let serverembed = new Discord.RichEmbed()
-    .setDescription("Server Information")
-    .setColor("#15f153")
-    .setThumbnail(sicon)
-    .addField("Server Name", message.guild.name)
-    .addField("Created On", message.guild.createdAt)
-    .addField("You Joined", message.member.joinedAt)
-    .addField("Total Members", message.guild.memberCount);
-
-    return message.channel.send(serverembed);
   }
 
 
@@ -154,100 +95,6 @@ bot.on("message", async message => {
           .catch(error => message.reply(`Sorry ${message.author} I couldn't mute because of : ${error}`)); //if error, display error
       message.reply(`${unmutedmember.user} has been unmuted by ${message.author}!`); // sends a message saying he was kicked
   }
-
-
-
-  if(cmd === `${prefix}membercount`){
-
-    let sicon = message.guild.iconURL;
-    let serverembed = new Discord.RichEmbed()
-    .setDescription("**Member Count**")
-    .setColor("#eb8f1b")
-    .setThumbnail(sicon)
-    .addField("Members", message.guild.memberCount);
-
-    return message.channel.send(serverembed);
-  }
-
-
-
-
-  if(cmd === `${prefix}botinfo`){
-
-    let bicon = bot.user.displayAvatarURL;
-    let botembed = new Discord.RichEmbed()
-    .setDescription("Bot Information")
-    .setColor("#15f153")
-    .setThumbnail(bicon)
-    .addField("Bot Name", bot.user.username)
-    .addField("Created On", bot.user.createdAt);
-
-    return message.channel.send(botembed);
-  }
-
-
-
-
-  if (cmd === `${prefix}esay`){
- 		message.delete()
-         const embed = new Discord.RichEmbed()
- 		.setColor(0x4d433e)
- 		.setDescription(args.join(" "));
- 		message.channel.send({embed})
-}
-
-
-
-
-  if (cmd === `${prefix}asay`){
- 		message.delete()
- 		message.channel.send('@everyone');
- 		message.channel.send(args.join(" "));
-}
-
-
-
-
-  if (cmd === `${prefix}embedsay`){
- 		message.delete()
-         const embed = new Discord.RichEmbed()
- 		.setColor(0x4d433e)
- 		.setDescription(args.join(" "));
- 		message.channel.send({embed})
-}
-
-
-
-
-  if (cmd === `${prefix}embed`){
- 		message.delete()
-         const embed = new Discord.RichEmbed()
- 		.setColor(0xaa1b1b)
- 		.setDescription(args.join(" "));
- 		message.channel.send({embed})
-}
-
-
-
-
-  if (cmd === `${prefix}poll`){
-  let question = args.slice(0).join(" ");
-
-  if (args.length === 0)
-  return message.reply('Invalid Format: /Poll <Question>')
-
-  const embed = new Discord.RichEmbed()
-  .setTitle("A Poll Has Been Started!")
-  .setColor("#5599ff")
-    .setDescription(`${question}`)
-    .setFooter(`Poll Started By: ${message.author.username}`, `${message.author.avatarURL}`)
-  message.channel.send({embed})
-  message.react('👍')
-  .then(() => message.react('👎'))
-  .then(() => message.react('🤷‍♂️'))
-  .catch(() => console.error('Emoji failed to react.'));
-
-}
 
 
 
@@ -270,15 +117,8 @@ bot.on("message", async message => {
     .setThumbnail(bicon)
     .addField("/kick (user) (reason)", "Kick a User.")
     .addField("/ban (user) (reason)", "Ban a User.")
-    .addField("/report (user) (reason)", "report about User.")
     .addField("/mute (user) (reason)", "Mute a User")
-    .addField("/purge (number)", "Clear the chat")
-    .addField("/serverinfo", "Server Informations.")
-    .addField("/botinfo", "Bot Informations.")
-    .addField("/membercount", "Member Count.")
-    .addField("/poll (question)", "Vote about Question")
     .addField("/say (message)", "say your message.")
-    .addField("/esay (message)", "say your embed message.")
     .addField("/avatar @user", "Avatar of the user.")
     .addField("/ping", "Ping Pong")
     .addField("/help", "Show this Menu");
@@ -295,7 +135,7 @@ bot.on("message", async message => {
 
     let toMute = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0]);
     if(!toMute) return message.reply("Need Mention a User");
-    let role = message.guild.roles.find(r => r.name === "Muted");
+    let role = message.guild.roles.find(r => r.name === "💀 | Punishment");
     if(!role){
       try {
         role = await message.guild.createRole({
@@ -356,6 +196,12 @@ bot.on('message', msg => {
 bot.on('message', msg => {
   if (msg.content === '/avatar') {
     msg.reply(`You need Mention someone`)
+  }
+});
+
+bot.on('message', msg => {
+  if (msg.content === '/play') {
+    msg.reply(`Soon`)
   }
 });
 
