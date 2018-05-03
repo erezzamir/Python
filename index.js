@@ -5,9 +5,9 @@ const bot = new Discord.Client({disableEveryone: true});
 
 const swearWords = ["fuck", "bitch"];
 
-client.on('ready', () => {
-  client.user.setStatus("online");
-  client.user.setGame(")help | Created by Derpy");
+bot.on('ready', () => {
+  bot.user.setStatus("online");
+  bot.user.setGame(")help | Created by Derpy");
 });
 
 bot.on("message", async message => {
