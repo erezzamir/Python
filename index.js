@@ -5,7 +5,7 @@ const swearWords = ["fuck", "bitch"];
 
 bot.on('ready', () => {
   bot.user.setStatus("online");
-  bot.user.setGame(")help | Created by Derpy");
+  bot.user.setGame("!help | Created by Derpy");
 });
 
 bot.on("message", async message => {
@@ -115,13 +115,13 @@ await message.delete();
     .setDescription("Help Commands")
     .setColor("#268ccf")
     .setThumbnail(bicon)
-    .addField("/kick (user) (reason)", "Kick a User.")
-    .addField("/ban (user) (reason)", "Ban a User.")
-    .addField("/mute (user) (reason)", "Mute a User")
-    .addField("/say (message)", "say your message.")
-    .addField("/avatar @user", "Avatar of the user.")
-    .addField("/ping", "Ping Pong")
-    .addField("/help", "Show this Menu");
+    .addField("!kick (user) (reason)", "Kick a User.")
+    .addField("!ban (user) (reason)", "Ban a User.")
+    .addField("!mute (user) (reason)", "Mute a User")
+    .addField("!say (message)", "say your message.")
+    .addField("!avatar @user", "Avatar of the user.")
+    .addField("!ping", "Ping Pong")
+    .addField("!help", "Show this Menu");
 
     return message.author.send(botembed);
   }
@@ -182,19 +182,19 @@ if(message.content.startsWith(prefix + "avatar ")) { //IF for the command.
   }});
 
 bot.on('message', msg => {
-  if (msg.content === '/ping') {
+  if (msg.content === '!ping') {
     msg.reply(`Pong! The ping is **${(bot.ping).toFixed(0)}**ms!  :ping_pong:`)
   }
 });
 
 bot.on('message', msg => {
-  if (msg.content === '/help') {
+  if (msg.content === '!help') {
     msg.reply(`Check your dms`)
   }
 });
 
 bot.on('message', msg => {
-  if (msg.content === '/avatar') {
+  if (msg.content === '!avatar') {
     msg.reply(`You need Mention someone`)
   }
 });
