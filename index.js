@@ -4,13 +4,6 @@ const Discord = require("discord.js");
 const bot = new Discord.Client({disableEveryone: true});
 
 const swearWords = ["darn", "shucks", "frak", "shite", "arse", "ass", "asshole", "bastard", "bitch", "bollocks", "child-fucker", "Christ on a bike", "Christ on a cracker", "crap", "cunt", "damn", "frigger", "fuck", "goddamn", "godsdamn", "hell", "holy shit", "Jesus", "Jesus Christ", "Jesus H. Christ", "Jesus Harold Christ", "Jesus wept", "Jesus", "Mary and Joseph", "Judas Priest", "motherfucker", "nigga", "nigger", "shit", "shit ass", "shitass", "son of a bitch", "son of a motherless goat", "son of a whore", "sweet Jesus", "twat", "Can i suck your boobs", "Carpet muncher", "Choking your chicken", "Cock eyed Cunt.", "Cock muncher", "Cocklump", "Colder than a witches titty in a brass bra", "Creampie", "Cretinous cunting fuckhead", "Cum", "Cum Dumpster", "Cum on your face", "Cuntface", "can i fuck you from behind", "chimney sweeper", "chutney ferret", "cockeye", "coral stomper", "crotte", "cum dumpster", "cuntlapper", "cus", "Ai sat (directed at a man)", "Ain't", "Arrogant, Gum-chewing fat cunt", "As much use as a chocolate teapot", "a-hole", "arse bandit", "arvind kejriwal", "ask me bollix"];
- 
-//bot.on("ready", async () => {
-  //console.log(`${bot.user.username} is online!`);
-
-  //bot.user.setActivity("bots", {type: "MAKING"});
-
-  //bot.user.setGame("${server} Servers | /help");
 
 bot.on("ready", async () => {
   console.log(`Bot is Online!`);
@@ -25,21 +18,7 @@ bot.user.setActivity(`${bot.guilds.size} servers | /help`, {type: "WATCHING"});
 /// Updates the bot's status if he leaves a servers
 bot.on("guildDelete", guild => {
 bot.user.setActivity(
-        `${bot.guilds.size} servers | /help`, {type: "WATCHING"});
-});
-
-//welcome join
-bot.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.find('name', 'welcome');
-  if (!channel) return;
-  channel.send(`Welcome to the server, ${member}`);
-});
-
-//welcome left
-bot.on('guildMemberRemove', member => {
-  const channel = member.guild.channels.find('name', 'welcome');
-  if (!channel) return;
-  channel.send(`${member}, left the Server`);
+        `/help | Bot by Derpy [MIG] ⚒#6522`, {type: "PLAYING"});
 });
 
 bot.on("message", async message => {
