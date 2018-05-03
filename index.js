@@ -1,8 +1,6 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
 
-const bot = new Discord.Client();
-
 const swearWords = ["fuck", "bitch"];
 
 bot.on('ready', () => {
@@ -198,12 +196,6 @@ bot.on('message', msg => {
 bot.on('message', msg => {
   if (msg.content === '/avatar') {
     msg.reply(`You need Mention someone`)
-  }
-});
-
-bot.on('message', msg => {
-  if (msg.content === '/play') {
-    msg.reply(`Soon`)
   }
 });
 
