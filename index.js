@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-  console.log(`Online`);
+client.user.setGame("!help | Created by Derpy");
 });
 
 client.on('message', msg => {
