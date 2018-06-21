@@ -2,7 +2,7 @@
   "name": "bot",
   "version": "1.0.0",
   "description": "",
-  "main": "MyBot.py",
+  "main": "mybot.py",
   "dependencies": {
     "discord.js": "^11.3.2"
   },
